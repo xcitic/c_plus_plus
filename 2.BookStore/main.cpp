@@ -1,4 +1,5 @@
 #include <iostream>
+#include <vector>
 
 using namespace std;
 
@@ -37,10 +38,10 @@ class Book {
 
 class BookShelf: public Book {
     public:
-        Book books[10];
+        std::vector< Book > books;
 
         void add_book_to_shelf(Book newBook) {
-            books[0] = newBook;
+            books.push_back(newBook);
         }
 };
 
@@ -52,17 +53,28 @@ int main()
     book1.set_author("Isac Asimov");
     book1.set_pages(250);
 
+    Book book2;
+    book2.set_title("Prelude To Foundation");
+    book2.set_author("Isac Asimov");
+    book2.set_pages(350);
+
     BookShelf shelf;
     shelf.add_book_to_shelf(book1);
+    shelf.add_book_to_shelf(book2);
 
-    string book1_title = shelf.books[0].get_title();
-    string book1_author = shelf.books[0].get_author();
-    int book1_pages = shelf.books[0].get_pages();
+    for (uint i = 0; i < shelf.books.size(); i++) {
+        string book1_title = shelf.books[i].get_title();
+        string book1_author = shelf.books[i].get_author();
+        int book1_pages = shelf.books[i].get_pages();
 
-    cout << "Book 1:" << endl;
-    cout << "Title: " << book1_title << endl;
-    cout << "Author: " << book1_author << endl;
-    cout << "Pages: " << book1_pages << endl;
+        cout << "Book " << (i + 1) << ": " << endl;
+        cout << "Title: " << book1_title << endl;
+        cout << "Author: " << book1_author << endl;
+        cout << "Pages: " << book1_pages << endl;
+        cout << "" << endl;
+    }
+
+
 
     return 0;
 }
