@@ -73,10 +73,13 @@ int main()
     book3.set_author("William Gibson");
     book3.set_pages(275);
 
+    Book book4 = BookShelf::Book("Hackers Manual", "Anonymous", 1337);
+
     BookShelf shelf;
     shelf.add_book_to_end(book1);
     shelf.add_book_to_end(book2);
     shelf.add_book_to_start(book3);
+    shelf.add_book_to_end(book4);
 
     for (uint i = 0; i < shelf.books.size(); i++) {
         string book1_title = shelf.books[i].get_title();
