@@ -10,6 +10,14 @@ class Book {
     int pages;
 
     public:
+        Book(string aTitle, string aAuthor, int aPages) {
+            set_title(aTitle);
+            set_author(aAuthor);
+            set_pages(aPages);
+        }
+
+        Book(){}; // need default constructor to extend
+
         void set_title(string aTitle) {
             title = aTitle;
         }
@@ -40,27 +48,35 @@ class BookShelf: public Book {
     public:
         std::vector< Book > books;
 
-        void add_book_to_shelf(Book newBook) {
+        void add_book_to_end(Book newBook) {
             books.push_back(newBook);
+        }
+
+        void add_book_to_start(Book newBook) {
+            books.insert(books.begin(), newBook);
+        }
+
+        void remove_last_book() {
+            books.pop_back();
         }
 };
 
 
 int main()
 {
-    Book book1;
-    book1.set_title("I Robot");
-    book1.set_author("Isac Asimov");
-    book1.set_pages(250);
+    Book book1("I Robot", "Isac Asimov", 250); // using constructor
 
-    Book book2;
-    book2.set_title("Prelude To Foundation");
-    book2.set_author("Isac Asimov");
-    book2.set_pages(350);
+    Book book2("Prelude To Foundation", "Isac Asimov", 350);
+
+    Book book3;
+    book3.set_title("Neuromancer");
+    book3.set_author("William Gibson");
+    book3.set_pages(275);
 
     BookShelf shelf;
-    shelf.add_book_to_shelf(book1);
-    shelf.add_book_to_shelf(book2);
+    shelf.add_book_to_end(book1);
+    shelf.add_book_to_end(book2);
+    shelf.add_book_to_start(book3);
 
     for (uint i = 0; i < shelf.books.size(); i++) {
         string book1_title = shelf.books[i].get_title();
@@ -73,8 +89,6 @@ int main()
         cout << "Pages: " << book1_pages << endl;
         cout << "" << endl;
     }
-
-
 
     return 0;
 }
